@@ -1,0 +1,8 @@
+msgid "plugins.blocks.doom.displayName"
+msgstr "Doom"
+
+msgid "plugins.blocks.doom.description"
+msgstr "Allows you to play Doom in the sidebar."
+
+msgid "plugins.blocks.doom.block.title"
+msgstr "Play Doom"

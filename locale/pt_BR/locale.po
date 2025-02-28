@@ -1,0 +1,8 @@
+msgid "plugins.blocks.doom.displayName"
+msgstr "Doom"
+
+msgid "plugins.blocks.doom.description"
+msgstr "Permite jogar Doom na área de blocos."
+
+msgid "plugins.blocks.doom.block.title"
+msgstr "Jogar Doom"

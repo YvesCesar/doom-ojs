@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE version SYSTEM "../../../lib/pkp/dtd/pluginVersion.dtd">
+
+<version>
+	<application>doom</application>
+	<type>plugins.blocks</type>
+	<release>0.0.0.1</release>
+	<date>2025-02-27</date>
+	<class>DoomBlockPlugin</class>
+</version>
