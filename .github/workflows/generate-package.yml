@@ -19,16 +19,17 @@ jobs:
           
       - name: Check version.xml
         run: |
-          sudo apt install xmlstarlet
-          application=$(xmlstarlet sel -t -v 'version/application' version.xml)
-          if [ $application != $PLUGIN_NAME ]; then exit 1; fi
-          release=$(xmlstarlet sel -t -v 'version/release' version.xml)
-          tag=${{ github.ref }}
-          tag=${tag/refs\/tags\/v}
-          if [[ $release != $tag* ]]; then exit 1; fi
-          date_version=$(xmlstarlet sel -t -v 'version/date' version.xml)
-          current_date=$(date +'%Y-%m-%d')
-          if [ $date_version != $current_date ]; then exit 1; fi
+            sudo apt install xmlstarlet
+            # Adicionar flag --noblanks para ignorar problemas com DTD
+            application=$(xmlstarlet sel --noblanks -t -v 'version/application' version.xml)
+            if [ "$application" != "$PLUGIN_NAME" ]; then echo "Application name mismatch"; exit 1; fi
+            release=$(xmlstarlet sel --noblanks -t -v 'version/release' version.xml)
+            tag=${{ github.ref }}
+            tag=${tag/refs\/tags\/v}
+            if [[ "$release" != "$tag"* ]]; then echo "Release version mismatch"; exit 1; fi
+            date_version=$(xmlstarlet sel --noblanks -t -v 'version/date' version.xml)
+            current_date=$(date +'%Y-%m-%d')
+            if [ "$date_version" != "$current_date" ]; then echo "Date mismatch"; exit 1; fi
         shell: bash
         
       - name: Create the tar.gz package
