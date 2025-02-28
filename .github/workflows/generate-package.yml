@@ -1,10 +1,10 @@
-name: Create release and tar.gz package for it
-
 on:
   push:
     tags:
       - 'v*'
-  
+
+name: Create release and tar.gz package for it
+
 jobs:
   create-release:
     name: Create release and package
@@ -16,7 +16,19 @@ jobs:
         uses: actions/checkout@v2
         with:
           submodules: recursive
-        
+      - name: Check version.xml
+        run: |
+          sudo apt install xmlstarlet
+          application=$(xmlstarlet sel -t -v 'version/application' version.xml)
+          if [ $application != $PLUGIN_NAME ]; then exit 1; fi
+          release=$(xmlstarlet sel -t -v 'version/release' version.xml)
+          tag=${{ github.ref }}
+          tag=${tag/refs\/tags\/v}
+          if [[ $release != $tag* ]]; then exit 1; fi
+          date_version=$(xmlstarlet sel -t -v 'version/date' version.xml)
+          current_date=$(date +'%Y-%m-%d')
+          if [ $date_version != $current_date ]; then exit 1; fi
+        shell: bash
       - name: Create the tar.gz package
         run: |
           mkdir $PLUGIN_NAME
@@ -24,7 +36,6 @@ jobs:
           cp -r !($PLUGIN_NAME|.git*|.|..|tests|cypress) $PLUGIN_NAME
           tar -zcvf $PLUGIN_NAME.tar.gz $PLUGIN_NAME
         shell: bash
-        
       - name: Create the release
         id: create_release
         uses: actions/create-release@v1
@@ -35,7 +46,6 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-          
       - name: Upload the package as release asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
