@@ -15,6 +15,7 @@ class DoomBlockPlugin extends BlockPlugin
 
     public function getContents($templateMgr, $request = null)
     {
+        $templateMgr->assign('baseUrl', $request->getBaseUrl());
         return parent::getContents($templateMgr, $request);
     }
 

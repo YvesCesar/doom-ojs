@@ -20,7 +20,7 @@
                     const scriptInit = doc.createElement('script');
                     scriptInit.textContent = `
                         Dos(document.getElementById("dos"), {
-                            url: "https://cdn.dos.zone/custom/dos/doom.jsdos",
+                            url: "{$baseUrl}/plugins/blocks/doom/assets/doom.jsdos",
                         });
                     `;
                     doc.body.appendChild(scriptInit);
