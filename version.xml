@@ -4,7 +4,7 @@
 <version>
 	<application>doom</application>
 	<type>plugins.blocks</type>
-	<release>0.0.0.1</release>
-	<date>2025-02-28</date>
+	<release>0.0.0.2</release>
+	<date>2025-04-31</date>
 	<class>DoomBlockPlugin</class>
 </version>
